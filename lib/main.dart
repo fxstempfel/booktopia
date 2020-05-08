@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
+import 'barcode.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -13,22 +15,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Booktopia'),
+      routes: <String, WidgetBuilder>{
+        "/$BarcodeScanner": (context) => BarcodeScanner(),
+      },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -37,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,9 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SpeedDialChild(child: Icon(Icons.search), label: 'Rechercher'),
             SpeedDialChild(
-              child: Icon(Icons.camera_alt),
-              label: 'Scanner code-barres',
-            ),
+                child: Icon(Icons.camera_alt),
+                label: 'Scanner code-barres',
+                onTap: () => Navigator.pushNamed(context, '/$BarcodeScanner')),
             SpeedDialChild(child: Icon(Icons.file_upload), label: 'Importer')
           ],
         ) // This trailing comma makes auto-formatting nicer for build methods.
